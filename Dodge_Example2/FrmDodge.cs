@@ -31,8 +31,9 @@ namespace Dodge_Example2
 
         private void FrmDodge_Load(object sender, EventArgs e)
         {
+            MessageBox.Show("Use the left and right arrow keys to move the spaceship. \n Don't get hit by the planets! \n Every planet that gets past scores a point. \n If a planet hits a spaceship a life is lost! \n \n Enter your Name press tab and enter the number of lives \n Click Start to begin", "Game Instructions");
+            txtName.Focus();
             lives = int.Parse(txtLives.Text);// pass lives entered from textbox to lives variable
-
         }
 
         private void PnlGame_Paint(object sender, PaintEventArgs e)
@@ -107,7 +108,20 @@ namespace Dodge_Example2
 
         }
 
-     
+        private void MnuStart_Click(object sender, EventArgs e)
+        {
+            score = 0;
+            lblScore.Text = score.ToString();
+            lives = int.Parse(txtLives.Text);// pass lives entered from textbox to lives variable
+            TmrPlanet.Enabled = true;
+            TmrShip.Enabled = true;
+        }
+
+        private void MnuStop_Click(object sender, EventArgs e)
+        {
+            TmrShip.Enabled = false;
+            TmrPlanet.Enabled = false;
+        }
 
         private void FrmDodge_KeyUp(object sender, KeyEventArgs e)
         {

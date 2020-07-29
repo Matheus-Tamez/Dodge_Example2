@@ -127,12 +127,14 @@ namespace Dodge_Example2
             this.MnuStart.Name = "MnuStart";
             this.MnuStart.Size = new System.Drawing.Size(43, 20);
             this.MnuStart.Text = "Start";
+            this.MnuStart.Click += new System.EventHandler(this.MnuStart_Click);
             // 
             // MnuStop
             // 
             this.MnuStop.Name = "MnuStop";
             this.MnuStop.Size = new System.Drawing.Size(43, 20);
             this.MnuStop.Text = "Stop";
+            this.MnuStop.Click += new System.EventHandler(this.MnuStop_Click);
             // 
             // lblScore
             // 
@@ -166,7 +168,6 @@ namespace Dodge_Example2
             this.Controls.Add(this.MenuStrip);
             this.KeyPreview = true;
             this.MainMenuStrip = this.MenuStrip;
-            //this.Name = "FrmDodge";
             this.Load += new System.EventHandler(this.FrmDodge_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmDodge_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmDodge_KeyUp);
