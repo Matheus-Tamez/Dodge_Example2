@@ -31,6 +31,7 @@ namespace Dodge_Example2
 
         private void FrmDodge_Load(object sender, EventArgs e)
         {
+            lives = int.Parse(txtLives.Text);// pass lives entered from textbox to lives variable
 
         }
 
@@ -57,13 +58,73 @@ namespace Dodge_Example2
             {
                 planet[i].MovePlanet();
                 //if a planet reaches the bottom of the Game Area reposition it at the top
+               
+                if (spaceship.spaceRec.IntersectsWith(planet[i].planetRec))
+                {
+                    //reset planet[i] back to top of panel
+                    planet[i].y = 30; // set  y value of planetRec
+                    lives -= 1;// lose a life
+                    txtLives.Text = lives.ToString();// display number of lives
+                    CheckLives();
+                }
+
                 if (planet[i].y >= PnlGame.Height)
                 {
+                    score += 1;//update the score
+                    lblScore.Text = score.ToString();// display score
                     planet[i].y = 30;
                 }
 
             }
             PnlGame.Invalidate();//makes the paint event fire to redraw the panel
+
+
+        }
+
+        bool left, right;
+        int score, lives;
+        string move;
+
+        private void FrmDodge_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Left) { left = true; }
+            if (e.KeyData == Keys.Right) { right = true; }
+
+        }
+
+        private void TmrShip_Tick(object sender, EventArgs e)
+        {
+            if (right) // if right arrow key pressed
+            {
+                move = "right";
+                spaceship.MoveSpaceship(move);
+            }
+            if (left) // if left arrow key pressed
+            {
+                move = "left";
+                spaceship.MoveSpaceship(move);
+            }
+
+        }
+
+     
+
+        private void FrmDodge_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Left) { left = false; }
+            if (e.KeyData == Keys.Right) { right = false; }
+
+        }
+
+        private void CheckLives()
+        {
+            if (lives == 0)
+            {
+                TmrPlanet.Enabled = false;
+                TmrShip.Enabled = false;
+                MessageBox.Show("Game Over");
+
+            }
 
         }
     }
